@@ -1,6 +1,7 @@
 import pytest
 from django.conf import settings
 from django.test import RequestFactory
+from rest_framework.test import APIClient
 
 from mountains.users.tests.factories import UserFactory
 from mountains.nodes.tests.factories import PeakFactory
@@ -24,3 +25,8 @@ def peak() -> PeakFactory:
 @pytest.fixture
 def request_factory() -> RequestFactory:
     return RequestFactory()
+
+
+@pytest.fixture
+def api_client():
+    return APIClient()

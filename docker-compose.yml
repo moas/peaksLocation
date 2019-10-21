@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+    db:
+        container_name: app-db
+        image: mdillon/postgis:latest
+        restart: unless-stopped
+        networks:
+            - app-net
+        environment:
+          POSTGRES_PASSWORD: demo
+          POSTGRES_USER: testuser
+          POSTGRES_DB: peaks
+    cache:
+        container_name: app-cache
+        image: redis:latest
+        restart: unless-stopped
+        networks:
+          - app-net
+    app:
+        depends_on:
+            - db
+            - cache
+        container_name: peaks-app
+        build: .
+        image: peaks:latest
+        restart: unless-stopped
+        expose:
+            - 8000
+        networks:
+            - web-net
+            - app-net
+        environment:
+            DJANGO_DEBUG: "yes"
+            DJANGO_SECRET_KEY: changeme
+            DJANGO_ADMIN_URL: "admin/"
+            GATE_STRICT_MODE: "no"
+            GATE_WHITELIST_COUNTRIES: FR,
+            REDIS_URL: redis://cache:6379/2
+            DATABASE_URL: postgis://testuser:demo@db:5432/peaks
+            MAILGUN_API_KEY: ""
+            MAILGUN_DOMAIN: ""
+            SENTRY_DSN: ""
+            DJANGO_ALLOWED_HOSTS: app,localhost
+            DJANGO_SECURE_SSL_REDIRECT: "no"
+            DJANGO_SESSION_COOKIE_SECURE: "no"
+            DJANGO_CSRF_COOKIE_SECURE: "no"
+    server:
+        image: abiosoft/caddy
+        container_name: caddy
+        ports:
+          - "80:80"
+        networks:
+          - web-net
+        volumes:
+          - "./Caddyfile:/etc/Caddyfile"
+
+
+networks:
+    app-net:
+    web-net:

@@ -30,9 +30,9 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
-    path("users/", include("mountains.users.urls", namespace="users")),
-    path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-redoc'),
-    path("api/", include("mountains.nodes.api.urls"))
+    path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger'),
+    path("api/", include("mountains.nodes.api.urls")),
+    path("map/", include("mountains.nodes.urls", namespace="nodes")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

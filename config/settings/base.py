@@ -69,12 +69,14 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework_gis",
+    'django_filters',
     "drf_yasg",
 ]
 
 LOCAL_APPS = [
     "mountains.users.apps.UsersConfig",
     "mountains.nodes.apps.NodesConfig",
+    "mountains.gate.apps.GateConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -220,6 +222,17 @@ ADMINS = [("""Oscar LASM""", "oscar-lasm@example.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
+# REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+}
+
+SERIALIZATION_MODULES = {
+    "geojson": "django.contrib.gis.serializers.geojson",
+ }
+
 # LOGGING
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
@@ -246,3 +259,7 @@ LOGGING = {
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+# Gate APP
+GATE_STRICT_MODE = env.bool("GATE_STRICT_MODE", default=False)
+GATE_WHITELIST_COUNTRIES = env.list("GATE_WHITELIST_COUNTRIES", default=[])

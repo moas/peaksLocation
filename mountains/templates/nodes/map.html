@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous" />
+  <style type="text/css">
+    #mapid { height: 600px; width: 100%; margin-top: 45px}
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div id="mapid"></div>
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+  <script type="application/javascript">
+    $( document ).ready(function() {
+      var map = L.map('mapid').setView([48.833, 2.333], 7);
+      var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+      });
+      map.addLayer(osmLayer);
+      L.geoJSON({{ nodes|safe }}).bindPopup(function (layer) {
+          return layer.feature.properties.name;
+      }).addTo(map);
+    });
+  </script>
+{% endblock %}
