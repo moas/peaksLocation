@@ -69,6 +69,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework_gis",
+    'django_filters',
     "drf_yasg",
 ]
 
@@ -219,6 +220,17 @@ ADMIN_URL = "admin/"
 ADMINS = [("""Oscar LASM""", "oscar-lasm@example.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
+
+# REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+}
+
+SERIALIZATION_MODULES = {
+    "geojson": "django.contrib.gis.serializers.geojson",
+ }
 
 # LOGGING
 # ------------------------------------------------------------------------------

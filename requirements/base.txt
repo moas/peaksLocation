@@ -12,6 +12,7 @@ django-environ==0.4.5  # https://github.com/joke2k/django-environ
 django-model-utils==3.2.0  # https://github.com/jazzband/django-model-utils
 django-redis==4.10.0  # https://github.com/niwinz/django-redis
 djangorestframework-gis==0.14
+django-filter>=2.1.0
 drf-yasg[validation]==1.17
 
 # Django REST Framework
