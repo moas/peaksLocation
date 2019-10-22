@@ -32,15 +32,6 @@ Setting Up Your Users
 
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
-Type checks
-^^^^^^^^^^^
-
-Running type checks with mypy:
-
-::
-
-  $ mypy peaks
-
 Test coverage
 ^^^^^^^^^^^^^
 
@@ -57,16 +48,6 @@ Running tests with py.test
 
   $ pytest
 
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Moved to `Live reloading and SASS compilation`_.
-
-.. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
-
-
-
-
 
 Sentry
 ^^^^^^
@@ -81,6 +62,17 @@ Deployment
 ----------
 
 The following details how to deploy this application.
+
+
+Environment variables
+---------------------
+
+- DJANGO_DEBUG : set yes or no
+- DATABASE_URL: url of db
+- DJANGO_SECRET_KEY: django secret key
+- GATE_STRICT_MODE: avoid access if check ip origin failed
+- GATE_WHITELIST_COUNTRIES: list of countries whitelisted
+
 
 
 

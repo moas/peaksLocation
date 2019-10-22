@@ -76,6 +76,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "mountains.users.apps.UsersConfig",
     "mountains.nodes.apps.NodesConfig",
+    "mountains.gate.apps.GateConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -123,6 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
+    "mountains.gate.middleware.CountryGateAccess",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
@@ -258,3 +260,7 @@ LOGGING = {
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+
+# Gate APP
+GATE_STRICT_MODE = env.bool("GATE_STRICT_MODE", default=False)
+GATE_WHITELIST_COUNTRIES = env.list("GATE_WHITELIST_COUNTRIES", default=[])
