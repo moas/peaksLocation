@@ -28,5 +28,5 @@ def request_factory() -> RequestFactory:
 
 
 @pytest.fixture
-def api_client():
+def api_client() -> APIClient:
     return APIClient()
