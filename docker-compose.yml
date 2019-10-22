@@ -27,12 +27,11 @@ services:
         restart: unless-stopped
         expose:
             - 8000
-        command: ["gunicorn", "config.wsgi", "-w", "4", "-b", "0.0.0.0:8000", "--chdir=/app", '--log-level', 'info']
         networks:
             - web-net
             - app-net
         environment:
-            DJANGO_DEBUG: "no"
+            DJANGO_DEBUG: "yes"
             DJANGO_SECRET_KEY: changeme
             DJANGO_ADMIN_URL: "admin/"
             GATE_STRICT_MODE: "no"
@@ -42,6 +41,19 @@ services:
             MAILGUN_API_KEY: ""
             MAILGUN_DOMAIN: ""
             SENTRY_DSN: ""
+            DJANGO_ALLOWED_HOSTS: app,localhost
+            DJANGO_SECURE_SSL_REDIRECT: "no"
+            DJANGO_SESSION_COOKIE_SECURE: "no"
+            DJANGO_CSRF_COOKIE_SECURE: "no"
+    server:
+        image: abiosoft/caddy
+        container_name: caddy
+        ports:
+          - "80:80"
+        networks:
+          - web-net
+        volumes:
+          - "./Caddyfile:/etc/Caddyfile"
 
 
 networks:

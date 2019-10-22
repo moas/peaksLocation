@@ -1,0 +1,14 @@
+.coveragerc
+.dockerignore
+.editorconfig
+.gitattributes
+.gitignore
+.pylintrc
+.idea
+.env
+.git
+Dockerfile
+docker-compose.yml
+pytest.ini
+README.rst
+setup.cfg

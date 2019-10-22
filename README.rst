@@ -55,7 +55,7 @@ Sentry
 Sentry is an error logging aggregator service. You can sign up for a free account at  https://sentry.io/signup/?code=cookiecutter  or download and host it yourself.
 The system is setup with reasonable defaults, including 404 logging and integration with the WSGI application.
 
-You must set the DSN url in production.
+You must set the DSN url in production. Now it's comment
 
 
 Deployment
@@ -72,8 +72,13 @@ Environment variables
 - DJANGO_SECRET_KEY: django secret key
 - GATE_STRICT_MODE: avoid access if check ip origin failed
 - GATE_WHITELIST_COUNTRIES: list of countries whitelisted
+- DJANGO_ALLOWED_HOSTS: list of allowed host
+- DJANGO_SECURE_SSL_REDIRECT: enable/disable ssl redirection (disable in localhost)
+- DJANGO_SESSION_COOKIE_SECURE: enable/disable cookie secure (disable in localhost)
+- DJANGO_CSRF_COOKIE_SECURE: enable/disable crsf cookie secure (disable in localhost)
 
+Run application
+---------------
 
-
-
-
+- docker-compose up --build (if application image not exists)
+- docker-compose up (if application image exists)
