@@ -7,10 +7,9 @@ from django.conf import settings
 from django.http import HttpResponseForbidden
 from django.utils.deprecation import MiddlewareMixin
 
-WHITE_LIST = [item.lower() for item in settings.GATE_WHITELIST_COUNTRIES]
-
 
 class CountryGateAccess(MiddlewareMixin):
+    WHITE_LIST = [item.lower() for item in settings.GATE_WHITELIST_COUNTRIES]
 
     def process_request(self, request):
         ip = self._visitor_ip_address(request)
@@ -18,7 +17,7 @@ class CountryGateAccess(MiddlewareMixin):
             return HttpResponseForbidden()
 
         model = apps.get_model("gate.report")
-        country, blocked = self._check_is_blacklisted(ip, WHITE_LIST)
+        country, blocked = self._check_is_blacklisted(ip, CountryGateAccess.WHITE_LIST)
         if blocked:
             model.objects.create(ip=ip, origin=country or "")
             return HttpResponseForbidden()
