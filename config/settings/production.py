@@ -114,6 +114,7 @@ ANYMAIL = {
 # ------------------------------------------------------------------------------
 # http://whitenoise.evans.io/en/latest/django.html#enable-whitenoise
 MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")  # noqa F405
+MIDDLEWARE.insert(0, "mountains.gate.middleware.CountryGateAccess")  # noqa F405
 
 
 # LOGGING
