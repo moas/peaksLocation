@@ -23,15 +23,11 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-    path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-    ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path('api/docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger'),
-    path("api/", include("mountains.nodes.api.urls")),
+    path("api/", include("mountains.nodes.api.urls", namespace="api")),
     path("map/", include("mountains.nodes.urls", namespace="nodes")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

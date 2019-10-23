@@ -7,15 +7,15 @@ from django.contrib.gis.geos.point import Point
 
 from ..models import Peak
 
+fake = Faker()
+fake.add_provider(geo)
+
 
 class PeakFactory(DjangoModelFactory):
 
     class Meta:
         model = Peak
-        exclude = ("lat", "lon", "alt", "fake", "srid")
-
-    fake = Faker()
-    fake.add_provider(geo)
+        exclude = ("lat", "lon", "alt", "srid")
 
     lat = float(fake.latitude())
     lon = float(fake.longitude())
